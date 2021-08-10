@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <!--Home Page -->
+    <div data-role="page" id="pageHome">
+        <div data-role="header">
+          <h1>University Database in Angular</h1>
+        </div>
+        <div data-role="content">
+
+          <form>
+            <div class="form-group">
+              <label for="UniversityName">University Name </label>
+              <input type="text" class="form-control" name="name" [(ngModel)]="name">
+            </div><br/>
+
+            <div class="form-group">
+              <label for="UniversityAddress">University Address </label>
+              <input type="text" class="form-control" name="address" [(ngModel)]="address">
+            </div><br/>
+
+            <div class="form-group">
+              <label for="UniversityPhone">University Phone </label>
+              <input type="text" class="form-control" name="phone" [(ngModel)]="phone">
+            </div><br/>
+
+            <div class="btn-toolbar">
+              <button type="submit" (click)="saveUniversity()">save</button>
+              <button type="submit" (click)="deleteUniversity()">delete</button>
+              <button type="submit" (click)="displayUniversity()">display</button>
+            </div><br/>
+
+            <div class="form-group">
+              <label for="UniversityPhone">Search</label>
+              <input type="text" class="form-control" name="search" [(ngModel)]="search">
+            </div><br/>
+
+            <div class="btn-toolbar">
+              <button type="submit" (click)="searchUniversity()">search</button>
+            </div><br/>
+
+            <ul>
+              <li *ngFor="let university of universities">
+                {{ university }}
+              </li>
+            </ul>
+
+          </form>
+          
+        </div>
+      </div>
+    
+</body>
+</html>
