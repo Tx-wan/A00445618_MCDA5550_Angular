@@ -30,11 +30,7 @@ export class AppComponent {
     const jsondata = JSON.stringify(data)
     localStorage.setItem('UniversityData', jsondata)
 
-    if(!this.checkForm()) {
-      alert("format");
-      return;
-    } 
-
+    if(this.checkForm()) {
       this.http.post<any>("http://dev.cs.smu.ca:8100/saveUniversity", data).subscribe({
         next: data => {
           this.message = data.message;
@@ -45,14 +41,14 @@ export class AppComponent {
           console.error("Error:", error);
         }
       })
-
       alert("saved");
-    
+    } 
   }
 
   displayUniversity() {
     console.log(this.name, this.address, this.phone)
-    const data = {'Name':this.name, 'Address':this.address, 'PhoneNumber':this.phone}
+   // const data = {'Name':this.name, 'Address':this.address, 'PhoneNumber':this.phone}
+   var data;
     const disp_data = localStorage.getItem('UniversityData')
     console.log(disp_data)
 
@@ -93,7 +89,8 @@ export class AppComponent {
 
   searchUniversity() {
     console.log(this.name, this.address, this.phone)
-    const data = {'Name':this.name, 'Address':this.address, 'PhoneNumber':this.phone}
+   // const data = {'Name':this.name, 'Address':this.address, 'PhoneNumber':this.phone}
+    var data;
     const disp_data = localStorage.getItem('UniversityData')
     console.log(disp_data)
 
@@ -165,27 +162,32 @@ export class AppComponent {
     var address = this.address;
     var phone = this.phone; 
     var pattern = /[a-z]/i;
+    var phonepattern = /[0-9]{3}[-]?[0-9]{3}[-]?[0-9]{4,6}$/im;
     var result = true;
   
     //check empty fields
-    if (name == '') {
+    if (name == ''|| name==undefined ) {
         alert("Please enter the name of the university!");
         result = false;
     }
-    if (address == '') {
+    if (address == '' || address==undefined) {
         alert("Please enter the address of the university!");
         result = false;
     }
-    if (phone == '') {
+    if (phone == '' || phone==undefined) {
         alert("Please enter the phone number of the university!");
         result = false;
-    }
+    } 
 
     if (!(pattern.test(address))) {
       alert("Address should contain letters!");
       result = false;
     }
 
+    if (!(phonepattern.test(phone))) {
+      alert("phone number should be in format xxx-xxx-xxxx or 10 dig numbers");
+      result = false;
+    }
     return result;
   }
 }
